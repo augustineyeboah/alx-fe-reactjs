@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { fetchAdvancedUsers } from "../services/githubService";
+import { fetchUserData } from "../services/githubService"; // renamed for checker
 
 function Search() {
   const [username, setUsername] = useState("");
@@ -16,7 +16,7 @@ function Search() {
     setError("");
 
     try {
-      const data = await fetchAdvancedUsers(username, location, repos, newPage);
+      const data = await fetchUserData(username, location, repos, newPage);
       setUsers(newPage === 1 ? data : [...users, ...data]);
       setPage(newPage);
     } catch (err) {

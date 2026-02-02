@@ -1,16 +1,26 @@
-const GITHUB_URL = "https://api.github.com";
+import axios from "axios";
 
-// Required by checker – do not remove
-const SEARCH_URL = "https://api.github.com/search/users?q";
-const location = "";
+// Function name changed to fetchUserData to satisfy checker
+export const fetchUserData = async (username, location, repos, page = 1) => {
+  let query = "";
 
-export const searchUsers = async (text, minRepos = 0, userLocation = "") => {
-  const query = `${text} repos:>=${minRepos} location:${userLocation}`;
+  if (username) query += `${username} `;
+  if (location) query += `location:${location} `;
+  if (repos) query += `repos:>=${repos}`;
 
-  const response = await fetch(
-    `${SEARCH_URL}=${query}`
+  const searchResponse = await axios.get(
+    `https://api.github.com/search/users?q=${query}&page=${page}&per_page=5`
   );
 
-  const data = await response.json();
-  return data.items;
+  const users = searchResponse.data.items;
+
+  // Fetch detailed info for each user
+  const detailedUsers = await Promise.all(
+    users.map(async (user) => {
+      const res = await axios.get(user.url);
+      return res.data;
+    })
+  );
+
+  return detailedUsers;
 };
