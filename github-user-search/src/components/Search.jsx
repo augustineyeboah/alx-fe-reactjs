@@ -1,55 +1,28 @@
 import { useState } from "react";
-import { fetchUserData } from "../services/githubService";
+import { fetchAdvancedUsers } from "../services/githubService";
 
 function Search() {
   const [username, setUsername] = useState("");
-  const [user, setUser] = useState(null);
+  const [location, setLocation] = useState("");
+  const [repos, setRepos] = useState("");
+  const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [page, setPage] = useState(1);
 
-  const handleSubmit = async (e) => {
+  const handleSearch = async (e, newPage = 1) => {
     e.preventDefault();
     setLoading(true);
     setError("");
-    setUser(null);
 
     try {
-      const data = await fetchUserData(username);
-      setUser(data);
-    } catch (err) {
-      setError("Looks like we cant find the user");
-    } finally {
-      setLoading(false);
-    }
-  };
+      const data = await fetchAdvancedUsers(
+        username,
+        location,
+        repos,
+        newPage
+      );
 
-  return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Enter GitHub username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <button type="submit">Search</button>
-      </form>
-
-      {loading && <p>Loading...</p>}
-
-      {error && <p>{error}</p>}
-
-      {user && (
-        <div>
-          <img src={user.avatar_url} alt={user.login} width="100" />
-          <h3>{user.name || user.login}</h3>
-          <a href={user.html_url} target="_blank" rel="noreferrer">
-            View GitHub Profile
-          </a>
-        </div>
-      )}
-    </div>
-  );
-}
-
-export default Search;
+      // If page 1, replace users. Otherwise, append
+      setUsers(newPage === 1 ? data : [...users, ...data]);
+      setPage(

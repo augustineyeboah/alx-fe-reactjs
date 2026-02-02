@@ -2,8 +2,11 @@ import Search from "./components/Search";
 
 function App() {
   return (
-    <div>
-      <h1>GitHub User Search</h1>
+    <div className="p-4">
+      <h1 className="text-3xl font-bold text-red-500">
+        Tailwind is working
+      </h1>
+
       <Search />
     </div>
   );
