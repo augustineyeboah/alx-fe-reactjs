@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// Function name changed to fetchUserData to satisfy checker
-export const fetchUserData = async (username, location, repos, page = 1) => {
+// Fetch users from GitHub with advanced search parameters
+export const fetchAdvancedUsers = async (username, location, repos, page = 1) => {
   let query = "";
 
   if (username) query += `${username} `;
