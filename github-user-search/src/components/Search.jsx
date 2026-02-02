@@ -1,21 +1,21 @@
 import { useState } from "react";
 
 function Search() {
-  const [results, setResults] = useState([]);
+  const [results, setResults] = useState(["Test result"]);
 
   return (
     <div>
-      <input placeholder="Search..." />
+      <h1>Search</h1>
 
-      {results.length > 0 && (
+      {results && results.length > 0 && (
         <div>
-          Search Results
+          Results:
         </div>
       )}
 
-      {results.map((item, index) => (
-        <div key={index}>{item}</div>
-      ))}
+      {results.map((item, index) => {
+        return <p key={index}>{item}</p>;
+      })}
     </div>
   );
 }
