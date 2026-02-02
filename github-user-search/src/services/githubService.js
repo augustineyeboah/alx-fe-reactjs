@@ -1,26 +1,12 @@
-import axios from "axios";
+const GITHUB_URL = "https://api.github.com";
 
-// Fetch users from GitHub with advanced search parameters
-export const fetchAdvancedUsers = async (username, location, repos, page = 1) => {
-  let query = "";
+export const searchUsers = async (text, minRepos = 0) => {
+  const params = new URLSearchParams({
+    q: `${text} repos:>=${minRepos}`,
+  });
 
-  if (username) query += `${username} `;
-  if (location) query += `location:${location} `;
-  if (repos) query += `repos:>=${repos}`;
+  const response = await fetch(`${GITHUB_URL}/search/users?${params}`);
+  const data = await response.json();
 
-  const searchResponse = await axios.get(
-    `https://api.github.com/search/users?q=${query}&page=${page}&per_page=5`
-  );
-
-  const users = searchResponse.data.items;
-
-  // Fetch detailed info for each user
-  const detailedUsers = await Promise.all(
-    users.map(async (user) => {
-      const res = await axios.get(user.url);
-      return res.data;
-    })
-  );
-
-  return detailedUsers;
+  return data.items;
 };
