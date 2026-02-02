@@ -1,11 +1,7 @@
 import axios from "axios";
 
-export const fetchAdvancedUsers = async (
-  username,
-  location,
-  repos,
-  page = 1
-) => {
+// Fetch users from GitHub with advanced search parameters
+export const fetchAdvancedUsers = async (username, location, repos, page = 1) => {
   let query = "";
 
   if (username) query += `${username} `;
@@ -18,7 +14,7 @@ export const fetchAdvancedUsers = async (
 
   const users = searchResponse.data.items;
 
-  // Fetch extra details for each user
+  // Fetch detailed info for each user
   const detailedUsers = await Promise.all(
     users.map(async (user) => {
       const res = await axios.get(user.url);
