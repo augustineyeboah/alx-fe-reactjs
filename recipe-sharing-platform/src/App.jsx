@@ -1,24 +1,15 @@
-import { useState } from "react";
-import { Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import RecipeDetail from "./pages/RecipeDetail";
-import AddRecipe from "./pages/AddRecipe";
-import Navbar from "./components/Navbar";
-import initialRecipes from "./data/recipes";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import HomePage from "./components/HomePage";
 
 function App() {
-  const [recipes, setRecipes] = useState(initialRecipes);
-
   return (
-    <div className="min-h-screen bg-gray-100">
-      <Navbar />
-
-      <Routes>
-        <Route path="/" element={<Home recipes={recipes} />} />
-        <Route path="/recipe/:id" element={<RecipeDetail recipes={recipes} />} />
-        <Route path="/add" element={<AddRecipe setRecipes={setRecipes} />} />
-      </Routes>
-    </div>
+    <Router>
+      <div className="min-h-screen bg-gray-100">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
