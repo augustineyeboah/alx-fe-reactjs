@@ -1,41 +1,50 @@
 import { useParams } from "react-router-dom";
-import recipes from "../data/recipes";
+import { useState, useEffect } from "react";
 
 function RecipeDetail() {
   const { id } = useParams();
+  const [recipe, setRecipe] = useState(null);
 
-  // Convert id to number and find recipe
-  const recipe = recipes.find((r) => r.id === parseInt(id));
+  useEffect(() => {
+    fetch("/data.json")
+      .then((response) => response.json())
+      .then((data) => {
+        const foundRecipe = data.find(
+          (item) => item.id === parseInt(id)
+        );
+        setRecipe(foundRecipe);
+      })
+      .catch((error) => console.error("Error loading recipe:", error));
+  }, [id]);
 
   if (!recipe) {
-    return (
-      <div className="p-6 text-center">
-        <h2 className="text-2xl font-bold text-red-500">
-          Recipe not found
-        </h2>
-      </div>
-    );
+    return <div className="p-6 text-center">Loading...</div>;
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg mt-8">
-      <h1 className="text-3xl font-bold text-blue-600 mb-4">
-        {recipe.title}
-      </h1>
+    <div className="min-h-screen bg-gray-100 p-6 flex justify-center">
+      <div className="bg-white max-w-2xl w-full rounded-xl shadow-lg p-6">
+        <img
+          src={recipe.image}
+          alt={recipe.title}
+          className="w-full h-64 object-cover rounded-lg"
+        />
 
-      <p className="text-gray-700 mb-6">
-        {recipe.description}
-      </p>
+        <h1 className="text-3xl font-bold mt-4 mb-4">
+          {recipe.title}
+        </h1>
 
-      <h2 className="text-xl font-semibold mb-3">
-        Ingredients:
-      </h2>
+        <p className="text-gray-700">
+          {recipe.summary}
+        </p>
 
-      <ul className="list-disc list-inside space-y-2 text-gray-700">
-        {recipe.ingredients.map((ingredient, index) => (
-          <li key={index}>{ingredient}</li>
-        ))}
-      </ul>
+        <button
+          onClick={() => window.history.back()}
+          className="mt-6 bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-900 transition"
+        >
+          Back
+        </button>
+      </div>
     </div>
   );
 }

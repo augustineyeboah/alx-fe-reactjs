@@ -1,7 +1,26 @@
 [
   {
     "id": 1,
-    "title": "Test item",
-    "description": "Mock data"
+    "title": "Spaghetti Carbonara",
+    "summary": "A classic Italian pasta dish with eggs, cheese, bacon, and black pepper.",
+    "image": "https://via.placeholder.com/400"
+  },
+  {
+    "id": 2,
+    "title": "Chicken Tikka Masala",
+    "summary": "Chunks of grilled chicken cooked in a smooth buttery and creamy tomato-based gravy.",
+    "image": "https://via.placeholder.com/400"
+  },
+  {
+    "id": 3,
+    "title": "Beef Stir Fry",
+    "summary": "Tender beef strips cooked with vegetables in a savory soy-based sauce.",
+    "image": "https://via.placeholder.com/400"
+  },
+  {
+    "id": 4,
+    "title": "Vegetable Fried Rice",
+    "summary": "Flavorful fried rice mixed with fresh vegetables and soy sauce.",
+    "image": "https://via.placeholder.com/400"
   }
 ]
