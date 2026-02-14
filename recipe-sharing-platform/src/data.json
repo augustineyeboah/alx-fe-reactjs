@@ -3,24 +3,44 @@
     "id": 1,
     "title": "Spaghetti Carbonara",
     "summary": "A classic Italian pasta dish with eggs, cheese, bacon, and black pepper.",
-    "image": "https://via.placeholder.com/400"
+    "image": "https://via.placeholder.com/600",
+    "ingredients": [
+      "200g spaghetti",
+      "2 eggs",
+      "100g bacon",
+      "50g parmesan cheese",
+      "Black pepper",
+      "Salt"
+    ],
+    "instructions": [
+      "Boil spaghetti according to package instructions.",
+      "Cook bacon in a pan until crispy.",
+      "Whisk eggs and grated parmesan together.",
+      "Drain pasta and mix with bacon.",
+      "Remove from heat and stir in egg mixture quickly.",
+      "Season with salt and black pepper and serve."
+    ]
   },
   {
     "id": 2,
     "title": "Chicken Tikka Masala",
-    "summary": "Chunks of grilled chicken cooked in a smooth buttery and creamy tomato-based gravy.",
-    "image": "https://via.placeholder.com/400"
-  },
-  {
-    "id": 3,
-    "title": "Beef Stir Fry",
-    "summary": "Tender beef strips cooked with vegetables in a savory soy-based sauce.",
-    "image": "https://via.placeholder.com/400"
-  },
-  {
-    "id": 4,
-    "title": "Vegetable Fried Rice",
-    "summary": "Flavorful fried rice mixed with fresh vegetables and soy sauce.",
-    "image": "https://via.placeholder.com/400"
+    "summary": "Chunks of grilled chicken cooked in a creamy tomato-based gravy.",
+    "image": "https://via.placeholder.com/600",
+    "ingredients": [
+      "500g chicken breast",
+      "1 cup yogurt",
+      "2 tbsp tikka masala paste",
+      "1 cup tomato puree",
+      "1/2 cup cream",
+      "Garlic and ginger"
+    ],
+    "instructions": [
+      "Marinate chicken in yogurt and spices for 1 hour.",
+      "Grill or cook chicken until done.",
+      "Prepare sauce using tomato puree and cream.",
+      "Add cooked chicken to sauce.",
+      "Simmer for 10 minutes.",
+      "Serve hot with rice or naan."
+    ]
   }
 ]

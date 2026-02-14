@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 function RecipeDetail() {
@@ -9,41 +9,79 @@ function RecipeDetail() {
     fetch("/data.json")
       .then((response) => response.json())
       .then((data) => {
-        const foundRecipe = data.find(
+        const selectedRecipe = data.find(
           (item) => item.id === parseInt(id)
         );
-        setRecipe(foundRecipe);
+        setRecipe(selectedRecipe);
       })
       .catch((error) => console.error("Error loading recipe:", error));
   }, [id]);
 
   if (!recipe) {
-    return <div className="p-6 text-center">Loading...</div>;
+    return (
+      <div className="text-center py-20 text-xl font-semibold">
+        Loading recipe...
+      </div>
+    );
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6 flex justify-center">
-      <div className="bg-white max-w-2xl w-full rounded-xl shadow-lg p-6">
+    <div className="max-w-5xl mx-auto px-6 py-10">
+      <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+
+        {/* Image */}
         <img
           src={recipe.image}
           alt={recipe.title}
-          className="w-full h-64 object-cover rounded-lg"
+          className="w-full h-80 object-cover"
         />
 
-        <h1 className="text-3xl font-bold mt-4 mb-4">
-          {recipe.title}
-        </h1>
+        <div className="p-8">
 
-        <p className="text-gray-700">
-          {recipe.summary}
-        </p>
+          {/* Title */}
+          <h1 className="text-4xl font-bold mb-4">
+            {recipe.title}
+          </h1>
 
-        <button
-          onClick={() => window.history.back()}
-          className="mt-6 bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-900 transition"
-        >
-          Back
-        </button>
+          {/* Summary */}
+          <p className="text-gray-700 text-lg mb-8">
+            {recipe.summary}
+          </p>
+
+          {/* Ingredients Section */}
+          <div className="mb-8">
+            <h2 className="text-2xl font-semibold mb-4 border-b pb-2">
+              Ingredients
+            </h2>
+
+            <ul className="list-disc list-inside space-y-2 text-gray-700">
+              {recipe.ingredients.map((ingredient, index) => (
+                <li key={index}>{ingredient}</li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Instructions Section */}
+          <div className="mb-8">
+            <h2 className="text-2xl font-semibold mb-4 border-b pb-2">
+              Cooking Instructions
+            </h2>
+
+            <ol className="list-decimal list-inside space-y-3 text-gray-700">
+              {recipe.instructions.map((step, index) => (
+                <li key={index}>{step}</li>
+              ))}
+            </ol>
+          </div>
+
+          {/* Back Button */}
+          <Link
+            to="/"
+            className="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300"
+          >
+            ← Back to Home
+          </Link>
+        </div>
       </div>
     </div>
   );
