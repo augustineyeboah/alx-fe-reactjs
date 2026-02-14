@@ -22,3 +22,9 @@ function Navbar() {
 }
 
 export default Navbar;
+<Link
+  to="/add"
+  className="ml-6 text-gray-600 hover:text-blue-600 transition duration-300"
+>
+  Add Recipe
+</Link>
