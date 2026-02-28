@@ -1,4 +1,10 @@
-import { Routes, Route, Navigate, Outlet } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  Outlet,
+} from "react-router-dom";
 import Profile from "./components/Profile";
 
 /* ---------- Dummy Pages ---------- */
@@ -26,7 +32,7 @@ function ProtectedRoute({ children }) {
   return isAuthenticated ? children : <Navigate to="/login" />;
 }
 
-/* ---------- Layouts ---------- */
+/* ---------- Layout ---------- */
 
 function DashboardLayout() {
   return (
@@ -41,29 +47,27 @@ function DashboardLayout() {
 
 export default function App() {
   return (
-    <Routes>
-      {/* Basic routes */}
-      <Route path="/" element={<Home />} />
-      <Route path="/login" element={<Login />} />
+    <BrowserRouter>
+      <Routes>
+        {/* Basic routes */}
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
 
-      {/* Dynamic route */}
-      <Route path="/users/:id" element={<UserDetails />} />
+        {/* Dynamic route */}
+        <Route path="/users/:id" element={<UserDetails />} />
 
-      {/* Protected + Nested routes */}
-      <Route
-        path="/dashboard"
-        element={
-          <ProtectedRoute>
-            <DashboardLayout />
-          </ProtectedRoute>
-        }
-      >
-        <Route index element={<Dashboard />} />
-        <Route path="profile" element={<Profile />} />
-      </Route>
+        {/* Protected + Nested routes */}
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <DashboardLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route index element={<Dashboard />} />
+          <Route path="profile" element={<Profile />} />
+        </Route>
 
-      {/* Fallback */}
-      <Route path="*" element={<Navigate to="/" />} />
-    </Routes>
-  );
-}
+        {/* Fallback */}
+        <Route path="*" element={<Navigate to="/" />} />
