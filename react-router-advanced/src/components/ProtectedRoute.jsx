@@ -1,7 +1,7 @@
 import { Navigate } from "react-router-dom";
 
 // Simulated authentication
-const isAuthenticated = false; // change to true to test access
+const isAuthenticated = true; // change false → true to test access
 
 function ProtectedRoute({ children }) {
   if (!isAuthenticated) {
