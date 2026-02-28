@@ -1,4 +1,4 @@
-import { Link, Outlet } from "react-router-dom";
+import Profile from "./components/Profile";
 
 function Profile() {
   return (
