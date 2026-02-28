@@ -58,16 +58,13 @@ export default function App() {
 
         {/* Protected + Nested routes */}
         <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <DashboardLayout />
-            </ProtectedRoute>
-          }
-        >
-          <Route index element={<Dashboard />} />
-          <Route path="profile" element={<Profile />} />
-        </Route>
-
-        {/* Fallback */}
-        <Route path="*" element={<Navigate to="/" />} />
+  path="/profile"
+  element={
+    <ProtectedRoute>
+      <Profile />
+    </ProtectedRoute>
+  }
+>
+  <Route path="details" element={<ProfileDetails />} />
+  <Route path="settings" element={<ProfileSettings />} />
+</Route>
