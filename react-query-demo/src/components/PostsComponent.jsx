@@ -18,13 +18,12 @@ function PostsComponent() {
     isLoading,
     isError,
     error,
+    refetch, // ✅ needed for button refetch
   } = useQuery({
     queryKey: ["posts"],
     queryFn: fetchPosts,
-
-    // ✅ Required caching options
-    staleTime: 1000 * 60,        // 1 minute
-    cacheTime: 1000 * 60 * 5,    // 5 minutes
+    staleTime: 1000 * 60,
+    cacheTime: 1000 * 60 * 5,
     refetchOnWindowFocus: false,
     keepPreviousData: true,
   });
@@ -35,6 +34,12 @@ function PostsComponent() {
   return (
     <div>
       <h2>Posts</h2>
+
+      {/* ✅ Required refetch button */}
+      <button onClick={() => refetch()}>
+        Refetch Posts
+      </button>
+
       {data.slice(0, 5).map((post) => (
         <div key={post.id}>
           <h3>{post.title}</h3>
