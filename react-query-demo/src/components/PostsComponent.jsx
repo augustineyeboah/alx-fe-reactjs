@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 
-// ✅ separate fetch function (required name)
 const fetchPosts = async () => {
   const response = await fetch(
     "https://jsonplaceholder.typicode.com/posts"
@@ -22,6 +21,12 @@ function PostsComponent() {
   } = useQuery({
     queryKey: ["posts"],
     queryFn: fetchPosts,
+
+    // ✅ Required caching options
+    staleTime: 1000 * 60,        // 1 minute
+    cacheTime: 1000 * 60 * 5,    // 5 minutes
+    refetchOnWindowFocus: false,
+    keepPreviousData: true,
   });
 
   if (isLoading) return <p>Loading posts...</p>;
