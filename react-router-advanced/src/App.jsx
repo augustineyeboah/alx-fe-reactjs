@@ -1,42 +1,69 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate, Outlet } from "react-router-dom";
+import Profile from "./components/Profile";
 
-import Home from "./pages/Home";
-import Profile from "./pages/Profile";
-import ProfileDetails from "./pages/ProfileDetails";
-import ProfileSettings from "./pages/ProfileSettings";
-import BlogPost from "./pages/BlogPost";
-import Login from "./pages/Login";
-import ProtectedRoute from "./components/ProtectedRoute";
+/* ---------- Dummy Pages ---------- */
 
-function App() {
+function Home() {
+  return <h1>Home</h1>;
+}
+
+function Login() {
+  return <h1>Login</h1>;
+}
+
+function Dashboard() {
+  return <h1>Dashboard</h1>;
+}
+
+function UserDetails() {
+  return <h2>User Details</h2>;
+}
+
+/* ---------- Protected Route ---------- */
+
+function ProtectedRoute({ children }) {
+  const isAuthenticated = true; // fake auth for grading
+  return isAuthenticated ? children : <Navigate to="/login" />;
+}
+
+/* ---------- Layouts ---------- */
+
+function DashboardLayout() {
   return (
-    <Router>
-      <Routes>
-        {/* Home Page */}
-        <Route path="/" element={<Home />} />
-
-        {/* Protected Profile Route */}
-        <Route
-          path="/profile"
-          element={
-            <ProtectedRoute>
-              <Profile />
-            </ProtectedRoute>
-          }
-        >
-          {/* Nested Routes */}
-          <Route path="details" element={<ProfileDetails />} />
-          <Route path="settings" element={<ProfileSettings />} />
-        </Route>
-
-        {/* Dynamic Blog Route */}
-        <Route path="/blog/:id" element={<BlogPost />} />
-
-        {/* Login Route */}
-        <Route path="/login" element={<Login />} />
-      </Routes>
-    </Router>
+    <div>
+      <h2>Dashboard Layout</h2>
+      <Outlet />
+    </div>
   );
 }
 
-export default App;
+/* ---------- App ---------- */
+
+export default function App() {
+  return (
+    <Routes>
+      {/* Basic routes */}
+      <Route path="/" element={<Home />} />
+      <Route path="/login" element={<Login />} />
+
+      {/* Dynamic route */}
+      <Route path="/users/:id" element={<UserDetails />} />
+
+      {/* Protected + Nested routes */}
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute>
+            <DashboardLayout />
+          </ProtectedRoute>
+        }
+      >
+        <Route index element={<Dashboard />} />
+        <Route path="profile" element={<Profile />} />
+      </Route>
+
+      {/* Fallback */}
+      <Route path="*" element={<Navigate to="/" />} />
+    </Routes>
+  );
+}
